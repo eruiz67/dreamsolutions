@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+    <record id="1" model="estudiantes.skill">
+      <field name="name">Canto</field>
+      <field name="description">Sabe cantar</field>
+    </record>
+    <record id="2" model="estudiantes.skill">
+      <field name="name">Baile</field>
+      <field name="description">Sabe bailar</field>
+    </record>
+    <record id="3" model="estudiantes.skill">
+      <field name="name">Pintura</field>
+      <field name="description">Sabe pintar</field>
+    </record>
+    <record id="4" model="estudiantes.skill">
+      <field name="name">Teatro</field>
+      <field name="description">Sabe actuar</field>
+    </record>
+        <record id="5" model="estudiantes.skill">
+      <field name="name">Programacion</field>
+      <field name="description">Sabe programar</field>
+    </record>
+        <record id="6" model="estudiantes.skill">
+      <field name="name">Escritura</field>
+      <field name="description">Puede escribir cuentos e historias</field>
+    </record>
+        <record id="7" model="estudiantes.skill">
+      <field name="name">Bases de datos</field>
+      <field name="description">Puede implementar BBDD</field>
+    </record>
+        <record id="8" model="estudiantes.skill">
+      <field name="name">C++</field>
+      <field name="description">Sabe c++</field>
+    </record>
+        <record id="9" model="estudiantes.skill">
+      <field name="name">Java</field>
+      <field name="description">Sabe java</field>
+    </record>
+        <record id="10" model="estudiantes.skill">
+      <field name="name">HTML y CSS</field>
+      <field name="description">Sabe HTML y  CSS</field>
+    </record>
+
+    </data>
+    
+
+</odoo>

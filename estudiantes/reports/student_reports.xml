@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<report
+    id="action_report_student"
+    model="estudiantes.student"
+    string="Listado de estudiantes"
+    report_type="qweb-pdf"
+    multi="True"
+    name="estudiantes.report_template_student_list"
+    file="estudiantes.report_template_student_list"
+/>
+    <template id="report_template_student_list">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                        <div class="row pt-4" >
+                            <div class="col-12 text-center">
+                                <h3>Listado de estudiantes</h3>
+                            </div>
+                        </div>
+                    <p/>
+                        <table class="table table-stripped">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Carnet</th>
+                            <th>Edad</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Promedio</th>          
+                        </tr>
+                        <t t-foreach="docs" t-as="o">
+                        <tr>
+                            <td class="col-xs-3">
+                                <span t-field="o.name" />
+                            </td>
+                            <td class="col-xs-3">
+                                <span t-field="o.identification" />
+                            </td>
+                            <td class="col-xs-1">
+                                <span t-field="o.age" />
+                            </td>
+                            <td class="col-xs-2">
+                                <span t-field="o.email" />
+                            </td>
+                            <td class="col-xs-2">
+                                <span t-field="o.phone" />
+                            </td>
+                            <td class="col-xs-1">
+                                <span t-field="o.avg_mark" />
+                            </td>
+                        </tr>
+                        </t>
+                        </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+<report
+    id="action_report_student_data"
+    model="estudiantes.student"
+    string="Ficha de estudiantes"
+    report_type="qweb-pdf"
+    name="estudiantes.report_template_student_data"
+    file="estudiantes.report_template_student_data"
+/>
+    <template id="report_template_student_data">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+            <!--t t-call="utepda_beneficiario.ficha_external"-->
+            <t t-call="web.external_layout">
+                
+                    <div class="page">
+                        <div class="row" >
+                            <div class="col-12 text-right">
+                                <span>Fecha:</span>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                            </div>
+                        </div>
+                        <div class="row pt-4" >
+                            <div class="col-12 text-center">
+                                <h3>Ficha de estudiante</h3>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div>
+                                <img t-if="o.image_medium" t-att-src="image_data_uri(o.image_medium)" class="float-left" alt="Foto"/>
+                                <div t-else="" class="border" style="width:120px; height:120px;">
+                                </div>
+                            </div>
+                            <div class="pl-2 pt-4" >
+                              <h5 class="pl-2 pt-2"><span  t-field="o.name"/></h5>
+
+                              <!--p class="pl-2">
+                                  <ul class="list-inline mb-0"  t-if="o.address_id">
+                                      <li class="list-inline-item mr-0"><i class="fa fa-address-card mr-2" /></li>
+                                      <li class="list-inline-item mr-0"><span t-field="o.address_id.street"/>.</li>
+                                      <li class="list-inline-item mr-0"><span t-field="o.address_id.city"/>.</li>
+                                      <li class="list-inline-item"><span t-field="o.address_id.zip"/></li>
+                                  </ul>
+                                  <i t-if="o.work_email" class="fa fa-envelope mr-3" /><span t-field="o.work_email"/>
+                                  <br/>
+                                  <i t-if="o.mobile_phone" class="fa fa-phone mr-3" /><span t-field="o.mobile_phone"/>
+                              </p-->
+                            </div>
+                        </div>
+                        <div class="row pt-5">
+                            <div class="col-3 text-center" style="border-right: 1px solid grey; border-top: 1px solid grey;">
+                                 <span><b>Datos Generales</b></span>
+                            </div>
+                            <div class="col-9" style="border-bottom: 1px solid grey;">
+                            </div>
+                        </div>
+                        <div class="row pt-2" id="student_general_data">
+                            <div class="col-6" style="border-right:1px solid grey;">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Carnet:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.identification"/>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-5">
+                                        <span>Fecha nacimiento:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.date_birthday"/>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-5">
+                                        <span>Edad::</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.age"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Sexo:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.gender"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Telefono:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.phone"/>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-5">
+                                        <span>Email:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.phone"/>
+                                    </div>
+                                </div>
+                                <!--div class="row">
+                                    <div class="col-5">
+                                        <span>Fecha Ingreso:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.fecha_ingreso"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Número de contacto:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.mobile_phone"/>
+                                    </div>
+                                </div>
+                                <div class="row" t-if="o.motivo=='sustituto'">
+                                    <div class="col-5">
+                                        <span>Sustituye a:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.beneficiario_sustituido.name"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Proyecto:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.proyecto_id.name"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Estado civil:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.marital"/>
+                                    </div>
+                                </div-->
+                            </div>
+                        </div>
+                          
+                        <div class="row pt-5">
+                            <div class="col-3 text-center" style="border-right: 1px solid grey; border-top: 1px solid grey;">
+                                 <span><b>Evaluaciones</b></span>
+                            </div>
+                            <div class="col-9" style="border-bottom: 1px solid grey;">
+                            </div>
+                        </div>
+                         <t t-if="o.qty_subject_mark>0">  
+                        <div class="row pt-2" id="utepda_beneficiario_capacitaciones">
+                            <div class="col-6">
+                                 <div class="row">
+                                    <div class="col-5">
+                                        <span>Promedio:</span>
+                                    </div>
+                                    <div class="col-7 text-left">
+                                        <span t-field="o.avg_mark"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <p/>
+                        </t>
+                        <t t-else="else">
+                        <p/>
+                        <p/>
+                          <p>El estudiante no tiene evaluaciones</p>
+                         </t>
+                        <t t-if="o.qty_subject_mark>0">
+                        <table  class="table table-stripped">
+                        <tr>
+                            <th>Asignatura</th>
+                            <th>Nota</th>       
+                        </tr>
+                        <t t-foreach="o.subject_mark_ids" t-as="sub_mark">
+                        <tr>
+                            <td class="col-xs-8">
+                                <span t-field="sub_mark.subject_id.name" />
+                            </td>
+                            <td class="col-xs-4">
+                                <span t-field="sub_mark.mark" />
+                            </td>
+                        </tr>
+                        </t>
+                        </table>
+                        </t>
+                        
+                        <div id="utepda_beneficiario_next"/>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+</odoo>
