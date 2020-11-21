@@ -98,6 +98,8 @@ class Estudiante(models.Model):
     image_small = fields.Binary("Small-sized photo", attachment=True)
 
     skill_ids = fields.Many2many('estudiantes.skill', string='Habilidades')
+
+    group_ids = fields.Many2many('estudiantes.group', string='Grupos')
     @api.model
     def _get_default_image(self):
         image_path = get_module_resource('estudiantes',
@@ -179,7 +181,51 @@ class Skill(models.Model):
         ('name_unique',
          'UNIQUE(name)',
          "No pueden existir dos habilidades con exactamente el mismo nombre"),
-    ]    
+    ]   
+
+
+class Groups(models.Model):
+    _name = 'estudiantes.group'
+    _description = 'Permite manejar los grupos a los que pertenecen los estudiantes'
+
+    name = fields.Char(string='Grupo', required=True)
+    description = fields.Char(string='Descripción')
+    year = fields.Selection([
+        ('1', '1ro'),
+        ('2', '2do'),
+        ('3', '3ro'),
+        ('4', '4to'),
+        ('5', '5to'),
+        ('mixto', 'mixto')
+
+    ], string='Año')
+
+    manager_id = fields.Many2one('estudiantes.student',string='Responsable', domain="[('id','in',student_ids)]", help="El responsable se selecciona de entre los integrales actuales del grupo")
+    student_ids = fields.Many2many('estudiantes.student', string='Estudiantes')
+
+    qty_student = fields.Integer(compute='_compute_qty_student', string='Cantidad integrantes', store=True)
+    
+    @api.depends('student_ids')
+    def _compute_qty_student(self):
+        for rec in self:
+            rec.qty_student = len(rec.student_ids)
+
+    _sql_constraints = [
+        ('name_unique',
+         'UNIQUE(name)',
+         "No pueden existir dos grupos con el mismo nombre"),
+    ]
+
+    @api.onchange('student_ids')
+    def _onchange_student_ids(self):
+            encontrado = False
+            if self.manager_id.id:
+                for member in self.student_ids:
+                    if self.manager_id == member:
+                        encontrado=True
+                if not encontrado:
+                    self.manager_id = False
+
     
     """
     date_birthday = fields.Date(string='Fecha de nacimiento')

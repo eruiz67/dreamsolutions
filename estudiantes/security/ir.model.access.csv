@@ -3,3 +3,4 @@ access_estudiantes_student,access_estudiantes_student,model_estudiantes_student,
 access_estudiantes_subject,access_estudiantes_subject,model_estudiantes_subject,,1,1,1,1
 access_estudiantes_student_subject_mark,access_estudiantes_student_subject_mark,model_estudiantes_student_subject_mark,,1,1,1,1
 access_estudiantes_skill,access_estudiantes_skill,model_estudiantes_skill,,1,1,1,1
+access_estudiantes_group,access_estudiantes_group,model_estudiantes_group,,1,1,1,1
