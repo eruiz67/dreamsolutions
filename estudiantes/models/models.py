@@ -23,6 +23,7 @@ from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 class Estudiante(models.Model):
     _name = 'estudiantes.student'
     _description = 'Maneja la informacion de los estudiantes'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     active = fields.Boolean(default=True)
     name = fields.Char(string='Nombre', required=True)
@@ -57,7 +58,7 @@ class Estudiante(models.Model):
 	             raise ValidationError("Debe seleccionar una dirección de correo válida")
     
 
-    age = fields.Integer(compute='_compute_age', string='Edad')
+    age = fields.Integer(compute='_compute_age', string='Edad', store=True)
     
     @api.one
     @api.depends('date_birthday')

@@ -66,6 +66,11 @@
                       </page>
                     </notebook>
                 </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
             </form>
         </field>
     </record>
@@ -81,7 +86,7 @@
       </field>
     </record>
 
-        <record id='student_view_kanban' model='ir.ui.view'>
+  <record id='student_view_kanban' model='ir.ui.view'>
         <field name="name">student.view.kanban</field>
         <field name="model">estudiantes.student</field>
         <field name="arch" type="xml">
@@ -146,9 +151,15 @@
       <separator/>
       <filter string="Activo" name="inactive" domain="[('active','=',True)]"/>
       <filter string="Inactivo/Archivado" name="inactive" domain="[('active','=',False)]"/>
+
+      <group expand="0" string="Group By">
+          <filter string="Edad" name="groupby_age" domain="[]" context="{'group_by': 'age'}"/>
+      </group>
     </search>
   </field>
 </record>
+
+
 
     <record id="skill_view_tree" model="ir.ui.view">
       <field name="name">skill.view.tree</field>
@@ -169,8 +180,8 @@
             <field name="name" />
             <field name="description" />
             <field name="year" />
-            <field name="manager_id" />
             <field name="qty_student" />
+            <field name="manager_id" />
         </tree>
       </field>
     </record>
@@ -220,6 +231,29 @@
         </form>
       </field>
     </record>
+
+    <record id="group_view_search" model="ir.ui.view">
+  <field name="name">estudiantes.group.view.search</field>
+  <field name="model">estudiantes.group</field>
+  <field name="arch" type="xml">
+    <search string="">
+       <field name="name" />
+       <field name="description" />
+       <field name="manager_id" />
+
+      <filter string="Primer año" name="primero" domain="[('year','=','1')]"/>
+      <filter string="Segundo año" name="primero" domain="[('year','=','2')]"/>
+      <filter string="Tercer año" name="primero" domain="[('year','=','3')]"/>
+      <filter string="Cuarto año" name="primero" domain="[('year','=','5')]"/>
+      <filter string="Quinto año" name="primero" domain="[('year','=','5')]"/>
+      <filter string="Mixto" name="primero" domain="[('year','=','mixto')]"/>
+      <group expand="0" string="Group By">
+          <filter string="Año" name="groupby_year" domain="[]" context="{'group_by': 'year'}"/>
+      </group>
+
+    </search>
+  </field>
+</record>
 
         <record id="student_action" model="ir.actions.act_window">
             <field name="name">Estudiantes</field>
